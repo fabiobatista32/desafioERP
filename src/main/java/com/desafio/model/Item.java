@@ -1,5 +1,6 @@
-package com.desafio.entity;
+package com.desafio.model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.UUID;
 
@@ -18,8 +19,13 @@ import com.desafio.enums.TipoItemEnum;
 
 @Entity
 @Table
-public class Item {
+public class Item implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3534498942902256092L;
+
 	@Id 
 	@GeneratedValue (generator = "system-uuid") 
 	@GenericGenerator(name = "system-uuid", strategy = "uuid") 
@@ -41,18 +47,21 @@ public class Item {
 	@Enumerated(EnumType.STRING)
 	private TipoItemEnum tipo;
 	
+	private Boolean ativo;
+	
 	public Item() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public Item(@NotNull String codigo, @NotNull String titulo, String descricao, @NotNull BigDecimal valorUnitario,
-			TipoItemEnum tipo) {
+			TipoItemEnum tipo, Boolean ativo) {
 		super();
 		this.codigo = codigo;
 		this.titulo = titulo;
 		this.descricao = descricao;
 		this.valorUnitario = valorUnitario;
 		this.tipo = tipo;
+		this.ativo = ativo;
 	}
 
 	public UUID getUuid() {
@@ -101,6 +110,14 @@ public class Item {
 
 	public void setTipo(TipoItemEnum tipo) {
 		this.tipo = tipo;
+	}
+
+	public Boolean getAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(Boolean ativo) {
+		this.ativo = ativo;
 	}
 
 	@Override

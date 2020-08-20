@@ -2,7 +2,7 @@ package com.desafio.service;
 
 import org.springframework.data.domain.Page;
 
-import com.desafio.entity.Item;
+import com.desafio.model.Item;
 
 public interface ItemService {
 	

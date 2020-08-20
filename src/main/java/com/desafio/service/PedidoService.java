@@ -2,7 +2,7 @@ package com.desafio.service;
 
 import org.springframework.data.domain.Page;
 
-import com.desafio.entity.Pedido;
+import com.desafio.model.Pedido;
 
 public interface PedidoService {
 

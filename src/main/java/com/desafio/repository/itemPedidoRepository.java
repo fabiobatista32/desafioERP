@@ -6,7 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.desafio.entity.ItemPedido;
+import com.desafio.model.ItemPedido;
 
 public interface itemPedidoRepository extends JpaRepository<ItemPedido, String> {
 	

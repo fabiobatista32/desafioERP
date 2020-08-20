@@ -1,5 +1,6 @@
-package com.desafio.entity;
+package com.desafio.model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.UUID;
 
@@ -13,20 +14,29 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table
-public class ItemPedido {
+public class ItemPedido implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2406397736369785812L;
+
 	@Id 
 	@GeneratedValue (generator = "system-uuid") 
 	@GenericGenerator(name = "system-uuid", strategy = "uuid") 
     @Column(name = "id", unique = true, nullable = false, length = 32)
 	private UUID uuid;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "id_item")
 	private Item item;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "id_pedido")
 	private Pedido pedido;
@@ -39,6 +49,15 @@ public class ItemPedido {
 	
 	public ItemPedido() {
 		// TODO Auto-generated constructor stub
+	}
+
+	public ItemPedido(Item item, Pedido pedido, BigDecimal valorUnitario, Integer quantidade, BigDecimal valorTotal) {
+		super();
+		this.item = item;
+		this.pedido = pedido;
+		this.valorUnitario = valorUnitario;
+		this.quantidade = quantidade;
+		this.valorTotal = valorTotal;
 	}
 
 	public UUID getUuid() {

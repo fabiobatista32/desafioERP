@@ -1,25 +1,36 @@
-package com.desafio.entity;
+package com.desafio.model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.desafio.enums.SituacaoPedidoEnum;
+
 @Entity
 @Table
-public class Pedido {
-	
+public class Pedido implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3392388743403643224L;
+
 	@Id 
 	@GeneratedValue (generator = "system-uuid") 
 	@GenericGenerator(name = "system-uuid", strategy = "uuid") 
@@ -36,8 +47,11 @@ public class Pedido {
 	
 	private BigDecimal valorTotal = BigDecimal.ZERO;
 	
-	@Transient
-	private List<ItemPedido> itens = new ArrayList<>();
+	@OneToMany(mappedBy="pedido",cascade = CascadeType.ALL)
+    private Set<ItemPedido> itens = new HashSet<>();
+	
+	@Enumerated(EnumType.STRING)
+	private SituacaoPedidoEnum situacao;
 	
 	public Pedido() {
 		// TODO Auto-generated constructor stub
@@ -91,12 +105,20 @@ public class Pedido {
 		this.valorTotal = valorTotal;
 	}
 
-	public List<ItemPedido> getItens() {
+	public Set<ItemPedido> getItens() {
 		return itens;
 	}
 
-	public void setItens(List<ItemPedido> itens) {
+	public void setItens(Set<ItemPedido> itens) {
 		this.itens = itens;
+	}
+
+	public SituacaoPedidoEnum getSituacao() {
+		return situacao;
+	}
+
+	public void setSituacao(SituacaoPedidoEnum situacao) {
+		this.situacao = situacao;
 	}
 
 	@Override

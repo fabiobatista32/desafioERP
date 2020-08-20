@@ -8,7 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.desafio.entity.ItemPedido;
+import com.desafio.model.ItemPedido;
 import com.desafio.repository.itemPedidoRepository;
 import com.desafio.service.ItemPedidoService;
 
