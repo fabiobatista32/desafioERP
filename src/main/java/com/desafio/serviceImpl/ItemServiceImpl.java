@@ -1,5 +1,6 @@
 package com.desafio.serviceImpl;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,12 +33,21 @@ public class ItemServiceImpl implements ItemService{
 	public Item findById(String id) {
 		Optional<Item> optional = itemRepository.findById(id);
 		return optional.isPresent() ? optional.get() : null;
+	}		
+	
+	public List<Item> findAll() {
+		return itemRepository.findAll();
 	}
 
 	@Override
 	public Page<Item> findAll(int page, int size) {
 		Pageable pageable = PageRequest.of(page, size);
-		return itemRepository.findAll(pageable);		
+		return itemRepository.findAll(pageable);
+	}
+
+	@Override
+	public void delete(Item item) {
+		itemRepository.delete(item);		
 	}
 
 }

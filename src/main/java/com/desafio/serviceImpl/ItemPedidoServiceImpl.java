@@ -1,5 +1,6 @@
 package com.desafio.serviceImpl;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,16 @@ public class ItemPedidoServiceImpl implements ItemPedidoService {
 	public Page<ItemPedido> findAll(int page, int size) {
 		Pageable pageable = PageRequest.of(page, size);
 		return itemPedidoRepository.findAll(pageable);
+	}
+
+	@Override
+	public List<ItemPedido> findAll() {
+		return itemPedidoRepository.findAll();
+	}
+
+	@Override
+	public void delete(ItemPedido itemPedido) {
+		itemPedidoRepository.delete(itemPedido);
 	}
 
 }

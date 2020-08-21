@@ -1,5 +1,6 @@
 package com.desafio.serviceImpl;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,9 +36,20 @@ public class PedidoServiceImpl implements PedidoService {
 	}
 
 	@Override
+	public List<Pedido> findAll() {
+		return pedidoRepository.findAll();
+	}
+
+	@Override
 	public Page<Pedido> findAll(int page, int size) {
 		Pageable pageable = PageRequest.of(page, size);
 		return pedidoRepository.findAll(pageable);
+	}
+
+
+	@Override
+	public void delete(Pedido pedido) {
+		pedidoRepository.delete(pedido);		
 	}
 
 }
