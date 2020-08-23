@@ -27,7 +27,7 @@ public class ItemPedido implements Serializable {
 
 	@Id 
 	@GeneratedValue (generator = "system-uuid") 
-	@GenericGenerator(name = "system-uuid", strategy = "uuid") 
+	@GenericGenerator(name = "system-uuid", strategy = "org.hibernate.id.UUIDGenerator") 
     @Column(name = "id", unique = true, nullable = false, length = 32)
 	private UUID uuid;
 	
@@ -45,19 +45,16 @@ public class ItemPedido implements Serializable {
 	
 	private Integer quantidade;
 	
-	private BigDecimal valorTotal;
-	
 	public ItemPedido() {
 		// TODO Auto-generated constructor stub
 	}
-
-	public ItemPedido(Item item, Pedido pedido, BigDecimal valorUnitario, Integer quantidade, BigDecimal valorTotal) {
+	
+	public ItemPedido(Item item, Pedido pedido, BigDecimal valorUnitario, Integer quantidade) {
 		super();
 		this.item = item;
 		this.pedido = pedido;
 		this.valorUnitario = valorUnitario;
 		this.quantidade = quantidade;
-		this.valorTotal = valorTotal;
 	}
 
 	public UUID getUuid() {
@@ -99,14 +96,16 @@ public class ItemPedido implements Serializable {
 	public void setQuantidade(Integer quantidade) {
 		this.quantidade = quantidade;
 	}
-
-	public BigDecimal getValorTotal() {
-		return valorTotal;
-	}
-
-	public void setValorTotal(BigDecimal valorTotal) {
-		this.valorTotal = valorTotal;
-	}
+	
+	/**
+     * Retorna o valor total do item pedido. 
+     * O valor total do item pedido será valor unitário do item multiplicado pela quantidade
+     *
+     * @return BigDecimal
+     */
+    public BigDecimal getValorTotal() {
+    	return valorUnitario != null ? valorUnitario.multiply(new BigDecimal(quantidade)) : BigDecimal.ZERO;
+    }
 
 	@Override
 	public int hashCode() {

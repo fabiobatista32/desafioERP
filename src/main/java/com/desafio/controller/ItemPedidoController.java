@@ -1,6 +1,7 @@
 package com.desafio.controller;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -45,7 +46,7 @@ public class ItemPedidoController {
     }
 
 	@GetMapping(value = "{id}")
-	public ResponseEntity<Response<ItemPedido>> findById(@PathVariable("id") String id) {
+	public ResponseEntity<Response<ItemPedido>> findById(@PathVariable("id") UUID id) {
 		Response<ItemPedido> response = new Response<>();
 		response.setData(service.findById(id));
 		return ResponseEntity.ok(response);
@@ -68,7 +69,7 @@ public class ItemPedidoController {
 	}
 	
 	@DeleteMapping("/{id}")
-	public void delete(@PathVariable("id") String id) {
+	public void delete(@PathVariable("id") UUID id) {
 		ItemPedido itemPedido = service.findById(id);
 		if(itemPedido != null)
 			service.delete(itemPedido);

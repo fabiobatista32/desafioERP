@@ -2,6 +2,7 @@ package com.desafio.serviceImpl;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -30,7 +31,7 @@ public class ItemServiceImpl implements ItemService{
 	}
 
 	@Override
-	public Item findById(String id) {
+	public Item findById(UUID id) {
 		Optional<Item> optional = itemRepository.findById(id);
 		return optional.isPresent() ? optional.get() : null;
 	}		

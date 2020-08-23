@@ -1,6 +1,7 @@
 package com.desafio.service;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.data.domain.Page;
 
@@ -14,7 +15,7 @@ public interface PedidoService {
 	
 	void delete(Pedido pedido);
         
-	Pedido findById(String id);
+	Pedido findById(UUID id);
 	
     List<Pedido> findAll();
     

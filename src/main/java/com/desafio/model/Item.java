@@ -28,7 +28,7 @@ public class Item implements Serializable {
 
 	@Id 
 	@GeneratedValue (generator = "system-uuid") 
-	@GenericGenerator(name = "system-uuid", strategy = "uuid") 
+	@GenericGenerator(name = "system-uuid", strategy = "org.hibernate.id.UUIDGenerator") 
     @Column(name = "id", unique = true, nullable = false, length = 32)
 	private UUID uuid;
 	

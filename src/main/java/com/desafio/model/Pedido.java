@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import javax.persistence.CascadeType;
@@ -33,7 +33,7 @@ public class Pedido implements Serializable {
 
 	@Id 
 	@GeneratedValue (generator = "system-uuid") 
-	@GenericGenerator(name = "system-uuid", strategy = "uuid") 
+	@GenericGenerator(name = "system-uuid", strategy = "org.hibernate.id.UUIDGenerator") 
     @Column(name = "id", unique = true, nullable = false, length = 32)
 	private UUID uuid;	
 			
@@ -48,7 +48,7 @@ public class Pedido implements Serializable {
 	private BigDecimal valorTotal = BigDecimal.ZERO;
 	
 	@OneToMany(mappedBy="pedido",cascade = CascadeType.ALL)
-    private Set<ItemPedido> itens = new HashSet<>();
+    private List<ItemPedido> itens = new ArrayList<>();
 	
 	@Enumerated(EnumType.STRING)
 	private SituacaoPedidoEnum situacao;
@@ -105,11 +105,11 @@ public class Pedido implements Serializable {
 		this.valorTotal = valorTotal;
 	}
 
-	public Set<ItemPedido> getItens() {
+	public List<ItemPedido> getItens() {
 		return itens;
 	}
 
-	public void setItens(Set<ItemPedido> itens) {
+	public void setItens(List<ItemPedido> itens) {
 		this.itens = itens;
 	}
 
