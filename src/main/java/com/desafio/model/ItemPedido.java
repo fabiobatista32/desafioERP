@@ -31,7 +31,7 @@ public class ItemPedido implements Serializable {
     @Column(name = "id", unique = true, nullable = false, length = 32)
 	private UUID uuid;
 	
-	@JsonIgnore
+	//@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "id_item")
 	private Item item;

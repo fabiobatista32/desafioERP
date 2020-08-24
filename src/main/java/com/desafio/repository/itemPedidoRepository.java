@@ -1,5 +1,6 @@
 package com.desafio.repository;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -14,5 +15,7 @@ public interface itemPedidoRepository extends JpaRepository<ItemPedido, UUID> {
 	Optional<ItemPedido> findById(UUID id);
 	
 	Page<ItemPedido> findAll(Pageable pageable);
+	
+	List<ItemPedido> findByItemUuid(UUID itemUuid);
 
 }

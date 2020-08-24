@@ -10,7 +10,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.desafio.model.Item;
 import com.desafio.model.ItemPedido;
+import com.desafio.repository.ItemRepository;
 import com.desafio.repository.itemPedidoRepository;
 import com.desafio.service.ItemPedidoService;
 
@@ -19,14 +21,33 @@ public class ItemPedidoServiceImpl implements ItemPedidoService {
 	
 	@Autowired
 	private itemPedidoRepository itemPedidoRepository;
+	
+	@Autowired
+	private ItemRepository itemRepository;
 
 	@Override
 	public ItemPedido create(ItemPedido itemPedido) {
+		if(itemPedido.getItem() != null	) {
+			Optional<Item> optional = itemRepository.findById(itemPedido.getItem().getUuid());
+			Item item = optional.isPresent() ? optional.get() : null;
+			if(item != null) {
+				itemPedido.setValorUnitario(item.getValorUnitario());
+				itemPedido.setItem(item);
+			}
+		}
 		return itemPedidoRepository.save(itemPedido);
 	}
 
 	@Override
 	public ItemPedido update(ItemPedido itemPedido) {
+		if(itemPedido.getItem() != null	){
+			Optional<Item> optional = itemRepository.findById(itemPedido.getItem().getUuid());
+			Item item = optional.isPresent() ? optional.get() : null;
+			if(item != null) {
+				itemPedido.setValorUnitario(item.getValorUnitario());
+				itemPedido.setItem(item);
+			}
+		}
 		return itemPedidoRepository.save(itemPedido);
 	}
 
@@ -50,6 +71,12 @@ public class ItemPedidoServiceImpl implements ItemPedidoService {
 	@Override
 	public void delete(ItemPedido itemPedido) {
 		itemPedidoRepository.delete(itemPedido);
+	}
+
+	@Override
+	public List<ItemPedido> findByItemId(UUID itemUuid) {
+		List<ItemPedido> list = itemPedidoRepository.findByItemUuid(itemUuid);
+		return list;
 	}
 
 }

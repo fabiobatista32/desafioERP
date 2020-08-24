@@ -8,10 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import com.desafio.exception.CustomException;
 import com.desafio.model.Item;
+import com.desafio.model.ItemPedido;
 import com.desafio.repository.ItemRepository;
+import com.desafio.repository.itemPedidoRepository;
 import com.desafio.service.ItemService;
 
 @Service
@@ -19,6 +23,9 @@ public class ItemServiceImpl implements ItemService{
 	
 	@Autowired
 	private ItemRepository itemRepository;
+	
+	@Autowired
+	private itemPedidoRepository itemPedidoRepository;
 
 	@Override
 	public Item create(Item item) {
@@ -48,7 +55,11 @@ public class ItemServiceImpl implements ItemService{
 
 	@Override
 	public void delete(Item item) {
-		itemRepository.delete(item);		
+		List<ItemPedido> list = itemPedidoRepository.findByItemUuid(item.getUuid());
+		if(list.isEmpty())
+			itemRepository.delete(item);
+		else
+			throw new CustomException("Item associado a um pedido", HttpStatus.ACCEPTED);
 	}
 
 }

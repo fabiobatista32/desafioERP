@@ -20,5 +20,7 @@ public interface ItemPedidoService {
 	List<ItemPedido> findAll();
     
     Page<ItemPedido> findAll(int page, int size);
+    
+	List<ItemPedido> findByItemId(UUID itemUuid);
 
 }
